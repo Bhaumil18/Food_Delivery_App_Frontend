@@ -131,7 +131,7 @@ const ManageRestaurantForm = () => {
                 // setEdit(false)
             }
             else {
-                const response = await axios.post('http://localhost:5000/api/my/restaurant', formData,
+                const response = await axios.post('https://food-delivery-app-backend-3oiy.onrender.com/api/my/restaurant', formData,
                     {
                         headers: {
                             'Content-Type': 'multipart/form-data',
