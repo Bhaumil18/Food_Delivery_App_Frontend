@@ -36,7 +36,7 @@ const AppRoutes = () => {
         <Route path='/user-profile' element={<Layout2><UserProfile /></Layout2>}></Route>
       </Route>
       <Route element={<ProtectedRoute />}>
-        <Route path='/my-restaurant' element={<Layout2><ManageRestaurantPage /></Layout2>}></Route>
+        <Route path='/my-restaurant' element={<Layout1 image={false}><ManageRestaurantPage /></Layout1>}></Route>
       </Route>
       <Route path='restaurants/:city' element={<Layout2><SearchPage /></Layout2>}></Route>
       <Route path='*' element={<Navigate to={'/'}></Navigate>}></Route>

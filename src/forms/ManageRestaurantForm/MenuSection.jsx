@@ -17,7 +17,7 @@ const MenuSection = ({ values }) => {
                             <div className='space-y-2'>
                                 {
                                     values.menu.map((_, index) => {
-                                        return <div key={index} className='flex gap-6'>
+                                        return <div key={index} className='flex flex-col md:flex-row gap-6'>
                                             <div className='flex flex-col gap-2'>
                                                 <div className='flex gap-4 items-center'>
                                                     <Label>Name</Label>

@@ -37,18 +37,18 @@ const SearchPage = () => {
     }
 
     return (
-        <div className='flex gap-4 lg:flex-row flex-col'>
+        <div className='flex gap-4 lg:flex-row flex-col-reverse'>
             <div className='md:min-w-96'>
                 <CuisinesFilter />
             </div>
             <div className='flex flex-col flex-1 gap-5'>
-                <SearchBar placeholder={"Search cuisine or Restaurant's name"} onSubmit={onSubmit} required={true} reset={true} />
-                <div id='r-first' className='flex justify-between'>
+                <SearchBar placeholder={"Search Restaurant's name"} onSubmit={onSubmit} required={true} reset={true} />
+                <div id='r-first' className='flex flex-col gap-3 md:flex-row justify-between'>
                     <div className='flex gap-2 items-center'>
                         <span className='text-xl font-bold'>{pagination?.total} Restaurant found in {city}.</span>
-                        <NavLink to={'/'} className={'text-sm font-semibold text-blue-700'}>Change Location</NavLink>
                     </div>
-                    <div>
+                    <div className='flex gap-2 items-center justify-between '>
+                        <NavLink to={'/'} className={'text-sm font-semibold text-blue-700'}>Change Location</NavLink>
                         Show dropdown here...
                     </div>
                 </div>

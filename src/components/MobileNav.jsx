@@ -53,7 +53,8 @@ const MobileNav = () => {
               </Button>
             ) : (
               <span className='flex flex-1 flex-col gap-4'>
-                <NavLink to={'/user-profile'}>User Profile</NavLink>
+                  <NavLink to={'/user-profile'}>User Profile</NavLink>
+                  <NavLink to={'/my-restaurant'}>Manage Restaurant</NavLink>
                 <Button onClick={handleLogout} className='bg-orange-500 font-bold flex flex-1'>
                   Logout
                 </Button>

@@ -23,7 +23,7 @@ const DetailsSection = () => {
                     </Field>
                 </div>
             </div>
-            <div className='flex gap-5'>
+            <div className='flex flex-col md:flex-row gap-5'>
                 <div className='space-y-1 flex-1'>
                     <Label>City</Label>
                     <ErrorMessage name='city' component="span" className='text-red-500 font-semibold ml-4' />

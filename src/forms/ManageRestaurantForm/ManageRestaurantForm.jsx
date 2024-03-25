@@ -62,7 +62,7 @@ const ManageRestaurantForm = () => {
         try {
             setIsLoading(true);
             const token = localStorage.getItem('token');
-            const restaurant = await axios.get('http://localhost:5000/api/my/restaurant', {
+            const restaurant = await axios.get(' https://food-delivery-app-backend-3oiy.onrender.com/api/my/restaurant', {
                 headers: {
                     Authorization: `Sonu ${token}`
                 }
@@ -120,7 +120,7 @@ const ManageRestaurantForm = () => {
 
         try {
             if (edit) {
-                const response = await axios.put('http://localhost:5000/api/my/restaurant', formData,
+                const response = await axios.put(' https://food-delivery-app-backend-3oiy.onrender.com/api/my/restaurant', formData,
                     {
                         headers: {
                             'Content-Type': 'multipart/form-data',

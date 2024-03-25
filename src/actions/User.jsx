@@ -5,8 +5,8 @@ import { toast } from 'sonner';
 const FetchUser = () => async (dispatch) => {
     try {
         dispatch(FetchRequest());
-        const { data } = await axios.get('https://food-delivery-app-backend-3oiy.onrender.com/api/user/api/user', {
-        // const { data } = await axios.get('http://localhost:5000/api/user', {
+        const { data } = await axios.get('https://food-delivery-app-backend-3oiy.onrender.com/api/user', {
+            // const { data } = await axios.get('http://localhost:5000/api/user', {
             headers: {
                 Authorization: `Sonu ${localStorage.getItem('token')}`
             }
@@ -16,14 +16,14 @@ const FetchUser = () => async (dispatch) => {
             dispatch(FetchSucess(user));
         }
     } catch (error) {
-        toast.error('Internal error...!');
+        // toast.error('Internal error...!');
         dispatch(FetchFailure());
     }
 }
 
 const CreateUser = ({ name, email, password, address, city, pincode }) => async () => {
     try {
-        const { data } = await axios.post("https://food-delivery-app-backend-3oiy.onrender.com/api/user/api/user/signup", { name: name, email: email, password: password, address: address, city: city, pincode: pincode });
+        const { data } = await axios.post("https://food-delivery-app-backend-3oiy.onrender.com/api/user/signup", { name: name, email: email, password: password, address: address, city: city, pincode: pincode });
         // const { data } = await axios.post("http://localhost:5000/api/user/signup", { name: name, email: email, password: password, address: address, city: city, pincode: pincode });
         toast.success(data.msg);
     } catch (error) {
@@ -34,7 +34,7 @@ const CreateUser = ({ name, email, password, address, city, pincode }) => async 
 const Login = ({ email, password, navigate }) => async (dispatch) => {
     try {
         dispatch(LoginRequest());
-        const { data } = await axios.post("https://food-delivery-app-backend-3oiy.onrender.com/api/user/api/user/login", { email: email, password: password });
+        const { data } = await axios.post("https://food-delivery-app-backend-3oiy.onrender.com/api/user/login", { email: email, password: password });
         // const { data } = await axios.post("http://localhost:5000/api/user/login", { email: email, password: password });
         dispatch(LoginSucess(data.user));
         localStorage.setItem('token', data.token);
@@ -60,7 +60,7 @@ const LogOut = () => async (dispatch) => {
 const UpdateUser = (values) => async (dispatch) => {
     try {
         // const { data } = await axios.put('http://localhost:5000/api/user/update', values);
-        const { data } = await axios.put('https://food-delivery-app-backend-3oiy.onrender.com/api/user/api/user/update', values);
+        const { data } = await axios.put('https://food-delivery-app-backend-3oiy.onrender.com/api/user/update', values);
         dispatch(FetchSucess(data.user))
         toast.success(data.msg)
     } catch (error) {

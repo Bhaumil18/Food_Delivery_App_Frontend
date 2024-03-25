@@ -42,7 +42,7 @@ const SignUpPage = () => {
             dispatch(CreateUser({ name, email, password, address, city, pincode }));
             navigate('/login');
         } catch (error) {
-            toast.error("Internal server error...!");
+            // toast.error("Internal server error...!");
         }
     }
     return (

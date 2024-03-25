@@ -5,7 +5,6 @@ import { Label } from '@/components/ui/label'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink, useNavigate } from 'react-router-dom'
-import { toast } from 'sonner'
 
 
 const LoginPage = () => {
@@ -29,7 +28,7 @@ const LoginPage = () => {
             dispatch(Login({ email, password,navigate }));
 
         } catch (error) {
-            toast.error("Internal Error...!");
+            // toast.error("Internal Error...!");
         }
     }
 
