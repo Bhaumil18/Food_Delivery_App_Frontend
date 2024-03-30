@@ -10,8 +10,8 @@ import { FetchAllRest } from '@/actions/Restaurants'
 const CuisinesFilter = () => {
 
     let { cuisines, isExpanded } = useSelector(state => state.cuisines);
+    const { sortOptionInd } = useSelector(state => state.sortOptions)
     const { city } = useParams();
-
 
     const dispatch = useDispatch();
 
@@ -20,7 +20,7 @@ const CuisinesFilter = () => {
     const handleCuisineReset = () => {
         newArr = [];
         dispatch(SetCuisine(newArr));
-        dispatch(FetchAllRest({ city, cuisines: newArr }))
+        dispatch(FetchAllRest({ city, cuisines: newArr,sortOption:sortOptionInd }))
     }
 
 
@@ -34,7 +34,7 @@ const CuisinesFilter = () => {
             newArr.push(e.target.value)
         }
         dispatch(SetCuisine(newArr));
-        dispatch(FetchAllRest({ city, cuisines: newArr }))
+        dispatch(FetchAllRest({ city, cuisines: newArr,sortOption:sortOptionInd  }))
     }
 
 

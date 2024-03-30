@@ -2,10 +2,16 @@ import React from 'react'
 import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from './ui/pagination'
 import { useDispatch, useSelector } from 'react-redux'
 import { FetchAllRest } from '@/actions/Restaurants';
+import { useParams } from 'react-router-dom';
 
 const PaginationSelector = () => {
+
+    const { city } = useParams();
     const dispatch = useDispatch();
-    const { pagination, city } = useSelector(state => state.restaurants)
+
+    const { cuisines } = useSelector(state => state.cuisines)
+    const { sortOptionInd } = useSelector(state => state.sortOptions)
+    const { pagination } = useSelector(state => state.restaurants)
 
     const pages = [];
     for (let index = Math.max(pagination.page - 1, 1); index <= Math.min(pagination.page + 1, pagination.pages); index++) {
@@ -15,17 +21,17 @@ const PaginationSelector = () => {
     const OnPageChange = (e) => {
         const page = parseInt(e.target.innerText);
         // console.log(typeof (page));
-        dispatch(FetchAllRest({ city, page }));
+        dispatch(FetchAllRest({ city, page, cuisines, sortOption:sortOptionInd }));
     }
 
     const OnPrevious = (e) => {
         const page = (pagination.page - 1) > 0 ? (pagination.page - 1) : pagination.page;
-        dispatch(FetchAllRest({ city, page }));
+        dispatch(FetchAllRest({ city, page, cuisines, sortOption:sortOptionInd }));
     }
 
     const OnNext = (e) => {
         const page = (pagination.page + 1) <= (pagination.pages) ? (pagination.page + 1) : pagination.page;
-        dispatch(FetchAllRest({ city, page }));
+        dispatch(FetchAllRest({ city, page, cuisines, sortOption:sortOptionInd }));
     }
 
     return (

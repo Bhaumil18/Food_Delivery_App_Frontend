@@ -12,6 +12,7 @@ const FetchUser = () => async (dispatch) => {
             }
         })
         const user = data?.user;
+        // console.log(user)
         if (user) {
             dispatch(FetchSucess(user));
         }

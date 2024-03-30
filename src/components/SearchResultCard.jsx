@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom'
 
 const SearchResultCard = ({ restaurant }) => {
     return (
-        <NavLink to={`/details/${restaurant._id}`} className='flex flex-col md:flex-row rounded-xl gap-4'>
+        <NavLink to={`/restuarant/${restaurant._id}`} className='flex flex-col md:flex-row rounded-xl gap-4'>
             <div id='image' className='rounded-xl overflow-hidden'>
                 <img src={restaurant.imageUrl} className='w-full md:aspect-video h-52 object-cover rounded-xl hover:scale-105 transition-all ease-linear duration-100' alt="" />
                 {/* <img src={'https://t3.ftcdn.net/jpg/03/24/73/92/360_F_324739203_keeq8udvv0P2h1MLYJ0GLSlTBagoXS48.jpg'} className='w-full md:aspect-video h-44 object-cover rounded-xl hover:scale-105 transition-all ease-linear duration-100' alt="" /> */}

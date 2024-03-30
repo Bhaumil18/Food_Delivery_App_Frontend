@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { NavLink, useParams } from 'react-router-dom';
 import { cuisineList } from './../config/RestaurantOptionCuisines';
 import { SetCuisine } from '@/reducers/CuisineFilter';
+import SortByDropDown from '@/components/SortByDropDown';
 
 const SearchPage = () => {
 
@@ -49,7 +50,7 @@ const SearchPage = () => {
                     </div>
                     <div className='flex gap-2 items-center justify-between '>
                         <NavLink to={'/'} className={'text-sm font-semibold text-blue-700'}>Change Location</NavLink>
-                        Show dropdown here...
+                        <SortByDropDown />
                     </div>
                 </div>
                 <div className='flex flex-col gap-8'>

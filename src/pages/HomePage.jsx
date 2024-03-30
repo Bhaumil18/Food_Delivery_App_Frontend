@@ -2,8 +2,10 @@ import landingPage from "../assets/landing.png";
 import downloadImage from '../assets/appDownload.png'
 import SearchBar from "@/components/SearchBar";
 import { FetchAllRest } from "@/actions/Restaurants";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { SetCuisine } from "@/reducers/CuisineFilter";
+import { setSortOption } from "@/reducers/SortOptions";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -11,6 +13,8 @@ const HomePage = () => {
 
   const onSubmit = (values) => {
     const city = values.search;
+    dispatch(SetCuisine([]));
+    dispatch(setSortOption(0));
     dispatch(FetchAllRest({ city }));
     naviagte(`/restaurants/${city}`)
   }
@@ -23,7 +27,7 @@ const HomePage = () => {
             Healthy Food
           </h1>
           <span className="text-xl">Food is just a click away!</span>
-          <SearchBar placeholder={'search by city or town...'} onSubmit={ onSubmit } />
+          <SearchBar placeholder={'search by city or town...'} onSubmit={onSubmit} />
         </div>
         <div className="grid md:grid-cols-2 gap-5">
           <img src={landingPage} alt="landingPage" />

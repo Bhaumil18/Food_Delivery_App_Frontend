@@ -11,6 +11,7 @@ import ManageRestaurantPage from './pages/ManageRestaurantPage'
 import { useDispatch, useSelector } from 'react-redux'
 import { FetchUser } from './actions/User'
 import SearchPage from './pages/SearchPage'
+import RestaurantDetail from './pages/RestaurantDetail'
 
 const AppRoutes = () => {
 
@@ -22,6 +23,7 @@ const AppRoutes = () => {
   }
 
   useEffect(() => {
+    // console.log(user)
     if (!user) {
       getData();
     }
@@ -38,8 +40,8 @@ const AppRoutes = () => {
       <Route element={<ProtectedRoute />}>
         <Route path='/my-restaurant' element={<Layout1 image={false}><ManageRestaurantPage /></Layout1>}></Route>
       </Route>
-      <Route path='restaurants/:city' element={<Layout2><SearchPage /></Layout2>}></Route>
-      <Route path='*' element={<Navigate to={'/'}></Navigate>}></Route>
+      <Route path='/restaurants/:city' element={<Layout2><SearchPage /></Layout2>}></Route>
+      <Route path='/restuarant/:restaurantId' element={<Layout2><RestaurantDetail /></Layout2>}></Route>
     </Routes>
   )
 }
