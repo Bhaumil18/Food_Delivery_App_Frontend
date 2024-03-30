@@ -20,7 +20,7 @@ const CuisinesFilter = () => {
     const handleCuisineReset = () => {
         newArr = [];
         dispatch(SetCuisine(newArr));
-        dispatch(FetchAllRest({ city, cuisines: newArr,sortOption:sortOptionInd }))
+        dispatch(FetchAllRest({ city, cuisines: newArr, sortOption: sortOptionInd }))
     }
 
 
@@ -34,7 +34,7 @@ const CuisinesFilter = () => {
             newArr.push(e.target.value)
         }
         dispatch(SetCuisine(newArr));
-        dispatch(FetchAllRest({ city, cuisines: newArr,sortOption:sortOptionInd  }))
+        dispatch(FetchAllRest({ city, cuisines: newArr, sortOption: sortOptionInd }))
     }
 
 
@@ -62,13 +62,13 @@ const CuisinesFilter = () => {
                     isExpanded ? <div onClick={() => {
                         dispatch(setExpanded())
                     }} className='flex justify-center items-start cursor-pointer'>
-                        <span className='text-base'>View more</span>
+                        <span className='text-base'>View less</span>
                         <ChevronUp className='pt-0.5' size={25} strokeWidth={3} />
                     </div> :
                         <div onClick={() => {
                             dispatch(setExpanded())
                         }} className='flex justify-center items-start cursor-pointer'>
-                            <span className='text-base'>View less</span>
+                            <span className='text-base'>View more</span>
                             <ChevronDown className='pt-0.5' size={25} strokeWidth={3} />
                         </div>
                 }

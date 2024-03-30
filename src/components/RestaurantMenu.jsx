@@ -16,9 +16,25 @@ import {
     AlertDialogHeader,
     AlertDialogTitle,
 } from "@/components/ui/alert-dialog"
+import {
+    Dialog,
+    DialogClose,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger
+} from "@/components/ui/dialog"
+import { Label } from './ui/label'
+import { Input } from './ui/input'
+import { UpdateUser } from '@/actions/User';
+import { useNavigate } from 'react-router-dom';
+
 
 const RestaurantMenu = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { restaurant } = useSelector(state => state.restaurant);
     const { restaurantName, items, total } = useSelector(state => state.cart)
 
@@ -26,6 +42,7 @@ const RestaurantMenu = () => {
     const [cartItems, setCartItems] = useState(items)
     const [indexs, setIndexs] = useState([]);
     const [cartTotal, setCartTotal] = useState(total)
+
 
     const addToCart = (menuItem) => {
         if (restaurantName != '' && restaurant.restaurantName != restaurantName) {
@@ -114,18 +131,55 @@ const RestaurantMenu = () => {
     }
 
     useEffect(() => {
+        if (cartItems.length == 0) {
+            dispatch(setRestaurant(''));
+        }
         dispatch(setItem(cartItems));
         let cartTotall = cartItems.reduce((total, cartItem) => { return total + cartItem.price * cartItem.qty }, 0);
         cartTotall += restaurant.deliveryPrice;
-        console.log(cartTotall)
         setCartTotal(cartTotall);
         setTotal(cartTotall)
     }, [cartItems])
 
+    const token = localStorage.getItem('token');
+
+    const { user } = useSelector(state => state.user);
+    const [loading, setLoading] = useState(true);
+    const [data, setData] = useState(null);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setData(user);
+            setLoading(false);
+        }, 1000);
+    }, [user]);
+
+    if (loading || !data) {
+        return <div>Loading...</div>;
+    }
+
+    const onCng = (e) => {
+        setData((prevData) => ({
+            ...prevData,
+            [e.target.name]: e.target.value
+        }))
+    }
+
+    const OnUpdateDetails = (value) => {
+        dispatch(UpdateUser({
+            email: value.email,
+            name: value.name,
+            address: value.address,
+            city: value.city,
+            pincode: value.pincode
+        }))
+        navigate('/checkout')
+    }
+
     return (
         <div className='flex flex-col  space-y-4'>
 
-            <AlertDialog open={true} >
+            <AlertDialog open={open} >
                 <AlertDialogContent className='w-96 md:w-full'>
                     <AlertDialogHeader>
                         <AlertDialogTitle>Replace cart item?</AlertDialogTitle>
@@ -140,7 +194,8 @@ const RestaurantMenu = () => {
                 </AlertDialogContent>
             </AlertDialog>
 
-            <img src={restaurant.imageUrl} alt="image" className='rounded-lg aspect-video' />
+
+            <img src={restaurant.imageUrl} alt="image" className='rounded-lg max-h-[500px]' />
 
             <div className='flex flex-col md:flex-row gap-4'>
 
@@ -186,15 +241,15 @@ const RestaurantMenu = () => {
                     </div>
                 </div>
                 {
-                    cartItems.length ? <Card className='md:w-2/5 p-8 flex flex-col space-y-6'>
+                    cartItems.length ? <Card className='md:w-2/5 h-fit p-8 flex flex-col space-y-6'>
                         <div>
                             <span className='text-3xl font-bold'>Your Order</span>
                         </div>
                         <div className='flex flex-col gap-3 justify-between'>
-                            <div className='flex text-lg font-medium'>
-                                <span className='flex-1' >Name</span>
-                                <span className='w-1/5' >Price</span>
-                                <span className='flex justify-center flex-1'>Qty</span>
+                            <div className='flex text-lg font-medium '>
+                                <span className='flex-1 ' >Name</span>
+                                <span className='w-1/5 ' >Price</span>
+                                <span className='flex justify-center flex-1 '>Qty</span>
                                 <span className='w-1/6' ></span>
                             </div>
 
@@ -207,7 +262,7 @@ const RestaurantMenu = () => {
                                     <div className='flex flex-1 gap-2 justify-center'>
                                         {cartItem.qty}
                                     </div>
-                                    <TrashIcon className='w-1/6' onClick={() => removeItem(cartItem._id)} />
+                                    <TrashIcon className='w-1/6 cursor-pointer' onClick={() => removeItem(cartItem._id)} />
                                 </div>
                             })
                         }
@@ -221,11 +276,55 @@ const RestaurantMenu = () => {
                             <span>{cartTotal} ₹</span>
                         </div>
                         <div className='flex'>
-                            <Button className='flex-1 bg-orange-500'>Checkout</Button>
+                            <Dialog>
+                                <DialogTrigger asChild>
+                                    {/* Checkout Button  */}
+                                    <Button className='flex-1 bg-orange-500'>{token == undefined ? "Login for Checkout" : 'Checkout'}</Button>
+                                </DialogTrigger>
+                                <DialogContent className="max-w-[350px] rounded-lg md:max-w-[600px] py-8 px-10">
+                                    <DialogHeader>
+                                        <DialogTitle>Confirm Delivery Details</DialogTitle>
+                                        <DialogDescription>
+                                            View and Change your profile here. Click save when you're done.
+                                        </DialogDescription>
+                                    </DialogHeader>
+                                    <form >
+                                        <div className='flex flex-col py-4 gap-4'>
+                                            <div className='flex flex-col gap-4'>
+                                                <Label>Email</Label>
+                                                <Input onChange={onCng} name='email' value={data.email} disabled></Input>
+                                            </div>
+                                            <div className='flex flex-col gap-4'>
+                                                <Label>Name</Label>
+                                                <Input onChange={onCng} name='name' value={data.name}></Input>
+                                            </div>
+                                            <div className='flex flex-col gap-4'>
+                                                <Label>Address</Label>
+                                                <Input onChange={onCng} name='address' value={data.address} required></Input>
+                                            </div>
+                                            <div className='flex gap-4'>
+                                                <div className='flex flex-1 flex-col gap-4'>
+                                                    <Label>City</Label>
+                                                    <Input onChange={onCng} name='city' value={data.city} required></Input>
+                                                </div>
+                                                <div className='flex flex-1 flex-col gap-4'>
+                                                    <Label>Pincode</Label>
+                                                    <Input onChange={onCng} name='pincode' value={data.pincode} required></Input>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <DialogFooter>
+                                        <DialogClose>
+                                            <Button type="submit" onClick={() => OnUpdateDetails(data)}>Continue to payment</Button>
+                                        </DialogClose>
+                                    </DialogFooter>
+                                </DialogContent>
+                            </Dialog>
                         </div>
                     </Card>
                         :
-                        <Card className='md:w-2/5 p-8 flex flex-col space-y-6'>
+                        <Card className='md:w-2/5 h-fit p-8 flex flex-col space-y-6'>
                             <div>
                                 <span className='text-3xl font-bold'>Your cart is empty.</span>
                             </div>

@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { FetchUser } from './actions/User'
 import SearchPage from './pages/SearchPage'
 import RestaurantDetail from './pages/RestaurantDetail'
+import Checkout from './pages/Checkout'
 
 const AppRoutes = () => {
 
@@ -42,6 +43,7 @@ const AppRoutes = () => {
       </Route>
       <Route path='/restaurants/:city' element={<Layout2><SearchPage /></Layout2>}></Route>
       <Route path='/restuarant/:restaurantId' element={<Layout2><RestaurantDetail /></Layout2>}></Route>
+      <Route path='/checkout' element={<Layout2><Checkout /></Layout2>}></Route>
     </Routes>
   )
 }

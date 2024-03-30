@@ -52,7 +52,7 @@ const LogOut = () => async (dispatch) => {
         dispatch(LogOutRequest());
         localStorage.removeItem('token');
         dispatch(LogOutSucess());
-        window.location.pathname = '/'
+        // window.location.pathname = '/'
     } catch (error) {
         dispatch(LogOutFailure());
     }
