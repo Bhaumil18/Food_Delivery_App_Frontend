@@ -125,8 +125,8 @@ const RestaurantMenu = () => {
     return (
         <div className='flex flex-col  space-y-4'>
 
-            <AlertDialog open={open}>
-                <AlertDialogContent>
+            <AlertDialog open={true} >
+                <AlertDialogContent className='w-96 md:w-full'>
                     <AlertDialogHeader>
                         <AlertDialogTitle>Replace cart item?</AlertDialogTitle>
                         <AlertDialogDescription >
@@ -134,7 +134,7 @@ const RestaurantMenu = () => {
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
-                        <AlertDialogCancel onClick={()=>{setOpen(false)}}>No</AlertDialogCancel>
+                        <AlertDialogCancel onClick={() => { setOpen(false) }}>No</AlertDialogCancel>
                         <AlertDialogAction className='bg-orange-500' onClick={ChangeRest}>Yes</AlertDialogAction>
                     </AlertDialogFooter>
                 </AlertDialogContent>
